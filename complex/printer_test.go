@@ -1,4 +1,4 @@
-package main
+package complex
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 )
 
 func TestComplexPrinter(t *testing.T) {
-	c := NewComplexPrinter("pre", "post")
+	c := New("pre", "post")
 
 	if c.Count() != 0 {
 		t.Errorf("Expected initial count of 0, got %d instead", c.Count())

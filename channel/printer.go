@@ -1,12 +1,12 @@
-package main
+package channel
 
 import (
 	"fmt"
 )
 
-// ChannelPrinter prints from channels
+// Printer prints from channels
 //
-type ChannelPrinter struct {
+type Printer struct {
 	StringChannel     chan string
 	EverythingChannel chan interface{}
 	TriggerChannel    chan bool
@@ -14,10 +14,10 @@ type ChannelPrinter struct {
 	quit, done chan bool
 }
 
-// NewChannelPrinter makes a ChannelPrinter
+// New makes a Printer
 //
-func NewChannelPrinter() (chp *ChannelPrinter) {
-	chp = &ChannelPrinter{
+func New() (chp *Printer) {
+	chp = &Printer{
 		StringChannel:     make(chan string),
 		EverythingChannel: make(chan interface{}),
 		TriggerChannel:    make(chan bool),
@@ -27,6 +27,7 @@ func NewChannelPrinter() (chp *ChannelPrinter) {
 	}
 
 	go func() {
+
 		for {
 			select {
 			case msg := <-chp.StringChannel:
@@ -49,13 +50,13 @@ func NewChannelPrinter() (chp *ChannelPrinter) {
 }
 
 // Print print a complex message
-func (chp *ChannelPrinter) Print(msg string) {
+func (chp *Printer) Print(msg string) {
 	chp.StringChannel <- msg
 }
 
 // Quit processing messages
 //
-func (chp *ChannelPrinter) Quit() {
+func (chp *Printer) Quit() {
 	chp.quit <- true
 	<-chp.done
 }

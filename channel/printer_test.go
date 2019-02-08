@@ -1,12 +1,14 @@
-package main
+package channel
 
 import (
 	"testing"
 )
 
-func TestChannelPrinter(t *testing.T) {
-	c := NewChannelPrinter()
-	defer c.Quit()
+func TestPrinter(t *testing.T) {
+	c := New()
+	defer func() {
+		c.Quit()
+	}()
 
 	c.Print("hello, world")
 
